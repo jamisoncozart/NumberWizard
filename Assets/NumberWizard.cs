@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class NumberWizard : MonoBehaviour
 {
-    int max = 1000;
-    int min = 1;
-    int guess = 500;
+    int max;
+    int min;
+    int guess;
 
     // Start is called before the first frame update
     void Start()
     {
+        StartGame();
+    }
+
+    void StartGame()
+    {
+        max = 1000;
+        min = 1;
+        guess = 500;
         Debug.Log("Welcome to number wizard!");
         Debug.Log("Pick a number, don't tell me what it is...");
         Debug.Log("Highest number you can pick is: " + max);
@@ -25,21 +33,25 @@ public class NumberWizard : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            print("up arrow was pressed");
             min = guess;
-            guess = (max + min) / 2;
-            Debug.Log(guess);
+            NextGuess();
         }
         else if(Input.GetKeyDown(KeyCode.DownArrow))
         {
-            print("down arrow was pressed");
             max = guess;
-            guess = (max + min) / 2;
-            Debug.Log(guess);
+            NextGuess();
         }
         else if(Input.GetKeyDown(KeyCode.Return))
         {
-            print("enter key was pressed");
+            print("I am a genius!");
+            StartGame();
         }
     }
+
+    void NextGuess()
+    {
+        guess = (max + min) / 2;
+        print("Is it higher or lower than: " + guess);
+    }
+
 }
