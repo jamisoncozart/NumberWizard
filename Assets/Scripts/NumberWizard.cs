@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NumberWizard : MonoBehaviour
 {
-    int max;
-    int min;
+    [SerializeField] int max;
+    [SerializeField] int min;
+    [SerializeField] Text guessText;
     int guess;
 
     // Start is called before the first frame update
@@ -16,42 +18,27 @@ public class NumberWizard : MonoBehaviour
 
     void StartGame()
     {
-        max = 1000;
-        min = 1;
-        guess = 500;
-        Debug.Log("Welcome to number wizard!");
-        Debug.Log("Pick a number, don't tell me what it is...");
-        Debug.Log("Highest number you can pick is: " + max);
-        Debug.Log("Lowest number you can pick is: " + min);
-        Debug.Log("Tell me if your number is higher or lower than: " + guess);
-        Debug.Log("Push Up = higher, Push Down = Lower, Push 'Enter' = Correct");
+        guess = (max + min) / 2;
+        guessText.text = guess.ToString();
         max = max + 1;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPressHigher()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            min = guess;
-            NextGuess();
-        }
-        else if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            max = guess;
-            NextGuess();
-        }
-        else if(Input.GetKeyDown(KeyCode.Return))
-        {
-            print("I am a genius!");
-            StartGame();
-        }
+        min = guess;
+        NextGuess();
+    }
+
+    public void OnPressLower()
+    {
+        max = guess;
+        NextGuess();
     }
 
     void NextGuess()
     {
         guess = (max + min) / 2;
-        print("Is it higher or lower than: " + guess);
+        guessText.text = guess.ToString();
     }
-
+    
 }
